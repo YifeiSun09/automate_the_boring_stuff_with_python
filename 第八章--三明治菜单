@@ -1,0 +1,50 @@
+import pyperclip as pyip
+import pyinputplus
+option_price={'white' : 2.00,
+                'wheat' : 2.50,
+                'sour dough' : 3.00,
+                'chicken' : 2.50,
+                'turkey' : 2.25,
+                'ham' : 1.75,
+                'tofu' : 4.00,
+                'cheddar' : 1.00,
+                'swiss' : 1.25,
+                'mozzarella' : 2.00,
+                'mayo' : 0.25,
+                'mustard' : 0.25,
+                'lettuce' : 0.30,
+                'tomato' : 0.50
+                }
+customer_Order=[]
+extras=['mayo','mustard','lettuce','tomato']
+sandwich_total_price=0.0
+
+bread_choice=pyinputplus.inputMenu(['while','wheat','sour dough'],'Choice your bread plz:\n',lettered=True)
+customer_Order.append(bread_choice)
+protein_choice=pyinputplus.inputMenu(['chicken','turkey','ham','tofu'],'Choice your protein plz:\n',lettered=True)
+customer_Order.append(protein_choice)
+cheese_response=pyinputplus.inputYesNo('would you like some cheese?\n')
+if cheese_response=='yes'or'Yes' or'Y' or 'y':
+    cheese_choice=pyinputplus.inputMenu(['cheddar','swiss', 'mozzarella'],'Choice your cheese plz:\n',lettered=True)
+    customer_Order.append(cheese_choice)
+else:
+    cheese_choice=''
+
+extra_choice=''
+for i in extras:
+    extra_choice=pyinputplus.inputYesNo('would you like some extra '+i+'?\n')
+    if extra_choice in ['yes','YES','Yes','Y','y','1']:
+        customer_Order.append(i)
+    else:
+        extra_choice=''
+
+numsandwich=pyinputplus.inputInt('how many sandwiches would you like?\n',min=1)
+print('\n Your order:')
+for item in customer_Order:
+    if item in option_price.keys():
+        sandwich_total_price+=option_price.get(item)
+        print('\t'+item+'-$'+str(option_price.get(item)))
+
+print('total for your sandwich:$'+str('{:0.2f}'.format(sandwich_total_price)))
+print('total for your order:('+str(numsandwich)+' sandwiches @$'+str('{:0.2f}'.format(sandwich_total_price)+' each)'))
+print('$'+str('{:0.2f}'.format(sandwich_total_price*numsandwich)))
